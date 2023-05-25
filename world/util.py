@@ -8,31 +8,22 @@ def otp_generator(size=6, chars=string.ascii_uppercase + string.digits):
 
 def send_otp_email(email, otp):
     try:
-        message = "Your otp is %s" %(otp)
+        message = f"Your otp is {otp}"
         email = EmailMessage('OTP for panorbit login', message, to=[email])
         email.send()
     except Exception:
         return False
-    
+
     return True
     
 def validate_otp(otp, sent_otp, email, sent_email):
     if not sent_otp or not sent_email:
-        result = {"success": False, "message": "session expired"}
-        return result
-
+        return {"success": False, "message": "session expired"}
     if not email or not otp:
-        result = {"success": False, "message": "didnot recieve proper data"}
-        return result
-
+        return {"success": False, "message": "didnot recieve proper data"}
     if otp != sent_otp:
-        result = {"success": False, "message": "wrong otp"}
-        return result
-
+        return {"success": False, "message": "wrong otp"}
     if email != sent_email:
-        result = {"success": False, "message": "wrong email"}
-        return result
-
-    result = {"success": True, "message": "validated"}
-    return result
+        return {"success": False, "message": "wrong email"}
+    return {"success": True, "message": "validated"}
 
